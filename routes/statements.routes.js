@@ -15,6 +15,7 @@ const sendBotMessage = (chatID, type, ref, config) => {
         let msg;
         if (config.type === 'statement') msg =
             `<strong>Новое заявление:</strong> ${statementTitles[type]} от ${config.name}\n<a href="${ref}">${ref}</a>`;
+        msg = encodeURI(msg)
         axios
             .post(`https://api.telegram.org/bot${configuration.telegram.token}/sendMessage?chat_id=${configuration.telegram.chat}&parse_mode=html&text=${msg}`)
             .then(res => {
