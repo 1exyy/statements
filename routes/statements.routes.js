@@ -117,7 +117,7 @@ router.post('/application', async (request, response) => {
         }
         sendBotMessage(525442208, type, request.headers.referer + '/' + lastIndex, {
             type: 'statement',
-            name: body.fullName,
+            name: fullName,
             number: lastIndex
         });
         response.status(201).json({message: "Заявление успешно отправлено"});
