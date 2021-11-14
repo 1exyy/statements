@@ -11,7 +11,7 @@ I wrote this library as it solved a problem I had at the time. Unfortunately, I 
 Please reach out to me if you'd like to help out and eventually maintain this project.
 
 ## Demo
-[Demo](http://szimek.github.io/signature_pad) works in desktop and mobile browsers. You can check out its [source code](https://github.com/szimek/signature_pad/blob/gh-pages/js/app.js) for some tips on how to handle window resize and high DPI screens. You can also find more about the latter in [HTML5 Rocks tutorial](http://www.html5rocks.com/en/tutorials/canvas/hidpi).
+[Demo](http://szimek.github.io/signature_pad) works in desktop and mobile browsers. You can check out its [source code](https://github.com/szimek/signature_pad/blob/gh-pages/js/index.js) for some tips on how to handle window resize and high DPI screens. You can also find more about the latter in [HTML5 Rocks tutorial](http://www.html5rocks.com/en/tutorials/canvas/hidpi).
 
 ### Other demos
 - Erase feature: <https://jsfiddle.net/szimek/jq9cyzuc/>
@@ -169,7 +169,7 @@ Here's an example in C# for ASP.NET:
 
 ``` csharp
 var dataUri = "data:image/png;base64,iVBORw0K...";
-var encodedImage = dataUri.Split(',')[1];            
+var encodedImage = dataUri.Split(',')[1];
 var decodedImage = Convert.FromBase64String(encodedImage);
 System.IO.File.WriteAllBytes("signature.png", decodedImage);
 ```

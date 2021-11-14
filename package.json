@@ -2,10 +2,10 @@
   "name": "statements",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js"
+    "start": "node index.js",
+    "server": "nodemon index.js"
   },
   "keywords": "Statements",
   "author": "Surnin Alexey <Alxvagbar@gmail.com>",
