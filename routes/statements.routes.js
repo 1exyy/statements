@@ -65,7 +65,6 @@ router.post('/gph', async (request, response) => {
         });
         response.status(201).json({massage: `${type}`});
     } catch (e) {
-        console.log(e)
         response.status(500).json({message: "Что по пошло не так", description: e})
     }
 });
@@ -102,12 +101,11 @@ router.post('/application', async (request, response) => {
         body.workExperienceDateFrom_3 = formatDateInput(workExperienceDateFrom_3);
         body.workExperienceDateTo_3 = formatDateInput(workExperienceDateTo_3);
         body.birthday = formatDateInput(birthday);
-
-        delete request.body.lastname;
-        delete request.body.name;
-        delete request.body.patronymic;
-        delete request.body.passport_series;
-        delete request.body.passport_number;
+        body.passport_series = passport_series;
+        body.passport_number = passport_number;
+        body.patronymic = patronymic
+        body.lastname = lastname;
+        body.name = name;
 
         if (body.city && fullName && body.signature && lastIndex) {
             const statement = new Statement({type, statementID: lastIndex, passport, fullName, ...body});
@@ -208,8 +206,10 @@ router.get(`/:type/:id`, async (request, response) => {
             });
             return;
         }
+        statementData.title = statementTitles[type];
+        statementData.isBased = true;
 
-        response.render(`${type}.hbs`, {isBased: true, title: statementTitles[type], ...statementData});
+        response.render(`${type}.hbs`, statementData);
     } catch (e) {
         response.render('404.hbs', {
             title: 'Error 404',

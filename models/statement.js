@@ -2,10 +2,11 @@ const {Schema, model} = require('mongoose');
 const schema = new Schema({
     type: {type: String, required: true},
     statementID: {type: Number, required: true},
-    city: {type: String, required: true, enum: ["Луганск", "Донецк", "Свердловск"]},
+    city: {type: String, required: true,},
     fullName: {type: String, required: true},
     signature: {type: String, required: true},
     signatureDate: {type: String},
+
     lastname: {type: String},
     name: {type: String},
     patronymic: {type: String},
