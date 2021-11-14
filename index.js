@@ -1,5 +1,4 @@
 const express = require('express');
-const config = require('config');
 const mongoose = require('mongoose');
 const expressHbs = require('express-handlebars');
 const cors = require('cors');
@@ -22,7 +21,7 @@ app.use(express.static('./static/signature_pad-master/docs'));
 
 async function start() {
     try {
-        await mongoose.connect(config.get('URI'));
+        await mongoose.connect('mongodb+srv://lexUs:Mepeze72@statements.xxqt8.mongodb.net/statements?retryWrites=true&w=majority');
         app.listen(PORT, () => console.log(`Server has been started on port ${PORT}`));
     } catch (e) {
         console.log('Error:', e);
