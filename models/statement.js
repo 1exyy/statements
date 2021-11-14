@@ -6,7 +6,13 @@ const schema = new Schema({
     fullName: {type: String, required: true},
     signature: {type: String, required: true},
     signatureDate: {type: String},
+    lastname: {type: String},
+    name: {type: String},
+    patronymic: {type: String},
+
+    passport_number: {type: String},
     passport: {type: String},
+    passport_series: {type: String},
     passportData: {type: String},
     dateFrom: {type: String},
     dateTo: {type: String},

@@ -208,18 +208,8 @@ router.get(`/:type/:id`, async (request, response) => {
             });
             return;
         }
-        let fullName = statementData.fullName.split(' ');
-        let passport = statementData.passport;
 
-        'title' in statementData ? statementData.title = statementTitles[type] : '';
-        'lastname' in statementData ? statementData.lastname = fullName[0] : '';
-        'name' in statementData ? statementData.name = fullName[1] : '';
-        'patronymic' in statementData ? statementData.patronymic = fullName[2] : '';
-        'passport_number' in statementData ? statementData.passport_number = passport.substr(2, passport.length) : '';
-        'passport_series' in statementData ? statementData.passport_series = passport.substr(0, 2) : '';
-        statementData.isBased = true;
-
-        response.render(`${type}.hbs`, statementData);
+        response.render(`${type}.hbs`, {isBased: true, title: statementTitles[type], ...statementData});
     } catch (e) {
         response.render('404.hbs', {
             title: 'Error 404',
