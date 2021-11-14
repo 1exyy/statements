@@ -8,7 +8,7 @@ const hbs = expressHbs.create({
     defaultLayout: 'statement',
     extname:'hbs'
 });
-const PORT = process.env.PORT || config.get('port') || 5000;
+const PORT = process.env.PORT || 8080;
 
 app.engine('hbs',hbs.engine);
 
