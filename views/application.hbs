@@ -1,0 +1,604 @@
+<style>
+    * {
+        font-family: "Times New Roman", sans-serif;
+        font-size: 16px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    input {
+        border: none;
+        border-bottom: 1px solid black;
+        outline: none;
+        padding: 0 10px;
+
+    }
+
+    ::-webkit-inner-spin-button,
+    ::-webkit-calendar-picker-indicator {
+        display: none;
+    }
+
+    .application {
+        padding: 100px 50px 150px;
+        width: 100%;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+    }
+
+    .statement_header__title {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .statement_header h4 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .vacancy_row span {
+        white-space: nowrap;
+        font-weight: bold;
+    }
+
+    .vacancy_row {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .vacancy_row input {
+        width: 100%;
+        margin-left: 10px;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 40px;
+        border-collapse: collapse;
+    }
+
+    .tr_bg_gray {
+        font-weight: bold;
+        background-color: #b7b7b7;
+    }
+
+    td {
+        padding: 5px;
+        min-width: 100px;
+    }
+
+    #fioTable td {
+        white-space: nowrap;
+    }
+
+    td input {
+        border: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    #education tr {
+        text-align: center;
+    }
+
+    #education tr:first-child {
+        text-align: left;
+    }
+
+    #workExp tr {
+        text-align: center;
+    }
+
+    #workExp tr:first-child {
+        text-align: left;
+    }
+
+    #selfQuality td {
+        display: flex;
+    }
+
+    .statement_footer {
+        margin-top: 70px;
+    }
+
+    .statement_footer__title {
+        margin: 0 auto;
+        width: 100%;
+        padding: 0 30px;
+    }
+
+    .statement_footer__title p {
+        text-indent: 40px;
+    }
+
+    .statement_footer__title p i {
+        line-height: 100%;
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+    .statement_footer__btns {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 70px;
+    }
+
+    .statement_footer__btns input {
+        margin-left: 15px;
+        max-width: 100px;
+        width: 100%;
+        background: none;
+    }
+
+    input[type="button"] {
+        width: 100px;
+        cursor: pointer;
+    }
+
+    .statement_footer__btns > div {
+        display: flex;
+    }
+
+
+</style>
+<div class="application">
+    <div class="statement_header">
+        <div class="statement_header__img">
+            <img src="" alt="">
+        </div>
+        <div class="statement_header__title">
+            <span>Внимание - все разделы анкеты обязательны для заполнения.</span>
+            <span>Мы благодарим Вас за проявленное внимание.</span>
+        </div>
+        <h4>АНКЕТА КАНДИДАТА</h4>
+    </div>
+    <div class="vacancy_row">
+        {{#if isBased}}
+            <span>НА ВАКАНСИЮ:</span><input type="text" value="{{place}}" disabled>
+        {{else}}
+            <span>НА ВАКАНСИЮ:</span><input type="text" name="place">
+        {{/if}}
+    </div>
+    <table id="fioTable" border="1">
+        <tr class="tr_bg_gray">
+            <td colspan="6">ЛИЧНЫЕ ДАННЫЕ</td>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>Фамилия:</td>
+                <td><input type="text" value="{{lastname}}" disabled></td>
+                <td>Имя:</td>
+                <td><input type="text" value="{{name}}" disabled></td>
+                <td>Отчество:</td>
+                <td><input type="text" value="{{patronymic}}" disabled></td>
+            {{else}}
+                <td>Фамилия:</td>
+                <td><input type="text" name="lastname"></td>
+                <td>Имя:</td>
+                <td><input type="text" name="name"></td>
+                <td>Отчество:</td>
+                <td><input type="text" name="patronymic"></td>
+            {{/if}}
+        </tr>
+        <tr class="tr_bg_gray">
+            <td colspan="6">ПАСПОРТНЫЕ ДАННЫЕ</td>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>Серия:</td>
+                <td><input type="text" value="{{passport_series}}" disabled></td>
+                <td>Номер паспорта:</td>
+                <td><input type="number" value="{{passport_number}}" disabled></td>
+                <td>СНИЛС:</td>
+                <td><input type="number" value="{{insurance}}" disabled></td>
+            {{else}}
+                <td>Серия:</td>
+                <td><input type="text" name="passport_series"></td>
+                <td>Номер паспорта:</td>
+                <td><input type="number" name="passport_number"></td>
+                <td>СНИЛС:</td>
+                <td><input type="number" name="insurance"></td>
+            {{/if}}
+
+        </tr>
+        <tr>
+            {{#if isBased }}
+                <td>Дата рождения:</td>
+                <td><input type="date" value="{{birthday}}" disabled></td>
+                <td>Город:</td>
+                <td colspan="3"><input type="text" value="{{city}}" disabled></td>
+            {{else }}
+                <td>Дата рождения:</td>
+                <td><input type="text" name="birthday"></td>
+                <td>Город:</td>
+                <td colspan="3"><input type="text" name="city"></td>
+            {{/if}}
+
+        </tr>
+        <tr class="tr_bg_gray">
+            <td colspan="6">КОНТАКТНЫЕ ДАННЫЕ</td>
+        </tr>
+
+        <tr>
+            {{#if isBased}}
+                <td>Адрес прописки:</td>
+                <td colspan="5"><input type="text" value="{{registration}}" disabled></td>
+            {{else}}
+                <td>Адрес прописки:</td>
+                <td colspan="5"><input type="text" name="registration"></td>
+            {{/if}}
+        </tr>
+
+        <tr>
+            {{#if isBased}}
+                <td>Адрес проживания:</td>
+                <td colspan="5"><input type="text" value="{{address}}" disabled></td>
+            {{else}}
+                <td>Адрес проживания:</td>
+                <td colspan="5"><input type="text" name="address"></td>
+            {{/if}}
+        </tr>
+
+        <tr>
+            {{#if isBased}}
+                <td>Номер телефона (Осн):</td>
+                <td colspan="2"><input type="tel" value="{{phoneNumber}}" disabled></td>
+            {{else}}
+                <td>Номер телефона (Осн):</td>
+                <td colspan="2"><input type="tel" name="phoneNumber"></td>
+            {{/if}}
+
+            {{#if isBased}}
+                <td colspan="2">Номер телефона (Доп):</td>
+                <td><input type="tel" value="{{dopPhoneNumber}}" disabled></td>
+            {{else}}
+                <td colspan="2">Номер телефона (Доп):</td>
+                <td><input type="tel" name="dopPhoneNumber"></td>
+            {{/if}}
+        </tr>
+    </table>
+
+    <table border="1" id="education">
+        <tr class="tr_bg_gray">
+            <td colspan="6">ОБРАЗОВАНИЕ</td>
+        </tr>
+        <tr>
+            <td colspan="2">Период обучения</td>
+            <td rowspan="2">Форма обучения</td>
+            <td rowspan="2">Полное название учебного заведения</td>
+            <td rowspan="2">Специальность, квалификация</td>
+        </tr>
+        <tr>
+            <td>С</td>
+            <td>ПО</td>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><input type="text" value="{{educationDateFrom}}" disabled></td>
+                <td><input type="text" value="{{educationDateTo}}" disabled></td>
+                <td><input type="text" value="{{educationForm}}" disabled></td>
+                <td><input type="text" value="{{universityName}}" disabled></td>
+                <td><input type="text" value="{{profession}}" disabled></td>
+            {{else}}
+                <td><input type="date" name="educationDateFrom"></td>
+                <td><input type="date" name="educationDateTo"></td>
+                <td><input type="text" name="educationForm"></td>
+                <td><input type="text" name="universityName"></td>
+                <td><input type="text" name="profession"></td>
+            {{/if}}
+        </tr>
+    </table>
+
+    <table border="1" id="workExp">
+        <tr class="tr_bg_gray">
+            <td colspan="6">ОПЫТ РАБОТЫ</td>
+        </tr>
+        <tr>
+            <td colspan="2">Период работы</td>
+            <td rowspan="2">Название организации</td>
+            <td rowspan="2">Направление деятельности организации</td>
+            <td rowspan="2">Должность</td>
+            <td rowspan="2">Кол-во подчиненных</td>
+        </tr>
+        <tr>
+            <td>С</td>
+            <td>ПО</td>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><input type="text" value="{{workExperienceDateFrom_1}}" disabled></td>
+                <td><input type="text" value="{{workExperienceDateTo_1}}" disabled></td>
+                <td><input type="text" value="{{companyName_1}}" disabled></td>
+                <td><input type="text" value="{{companyDirection_1}}" disabled></td>
+                <td><input type="text" value="{{workPlace_1}}" disabled></td>
+                <td><input type="text" value="{{subordinates_1}}" disabled></td>
+            {{else}}
+                <td><input type="date" name="workExperienceDateFrom_1"></td>
+                <td><input type="date" name="workExperienceDateTo_1"></td>
+                <td><input type="text" name="companyName_1"></td>
+                <td><input type="text" name="companyDirection_1"></td>
+                <td><input type="text" name="workPlace_1"></td>
+                <td><input type="text" name="subordinates_1"></td>
+            {{/if}}
+        </tr>
+        <tr>
+        <tr>
+            {{#if isBased}}
+                <td><input type="text" value="{{workExperienceDateFrom_2}}" disabled></td>
+                <td><input type="text" value="{{workExperienceDateTo_2}}" disabled></td>
+                <td><input type="text" value="{{companyName_2}}" disabled></td>
+                <td><input type="text" value="{{companyDirection_2}}" disabled></td>
+                <td><input type="text" value="{{workPlace_2}}" disabled></td>
+                <td><input type="text" value="{{subordinates_2}}" disabled></td>
+            {{else}}
+                <td><input type="date" name="workExperienceDateFrom_2"></td>
+                <td><input type="date" name="workExperienceDateTo_2"></td>
+                <td><input type="text" name="companyName_2"></td>
+                <td><input type="text" name="companyDirection_2"></td>
+                <td><input type="text" name="workPlace_2"></td>
+                <td><input type="text" name="subordinates_2"></td>
+            {{/if}}
+        </tr>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><input type="text" value="{{workExperienceDateFrom_3}}" disabled></td>
+                <td><input type="text" value="{{workExperienceDateTo_3}}" disabled></td>
+                <td><input type="text" value="{{companyName_3}}" disabled></td>
+                <td><input type="text" value="{{companyDirection_3}}" disabled></td>
+                <td><input type="text" value="{{workPlace_3}}" disabled></td>
+                <td><input type="text" value="{{subordinates_3}}" disabled></td>
+            {{else}}
+                <td><input type="date" name="workExperienceDateFrom_3"></td>
+                <td><input type="date" name="workExperienceDateTo_3"></td>
+                <td><input type="text" name="companyName_3"></td>
+                <td><input type="text" name="companyDirection_3"></td>
+                <td><input type="text" name="workPlace_3"></td>
+                <td><input type="text" name="subordinates_3"></td>
+            {{/if}}
+        </tr>
+    </table>
+    <table border="1" id="selfQuality">
+        <tr class="tr_bg_gray">
+            <td>ЛИЧНЫЕ КАЧЕСТВА:</td>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>1.</span><input type="text" value="{{personalQuality_1}}" disabled></td>
+            {{else}}
+                <td><span>1.</span><input type="text" name="personalQuality_1"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>2.</span><input type="text" value="{{personalQuality_2}}" disabled></td>
+            {{else}}
+                <td><span>2.</span><input type="text" name="personalQuality_2"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>3.</span><input type="text" value="{{personalQuality_3}}" disabled></td>
+            {{else}}
+                <td><span>3.</span><input type="text" name="personalQuality_3"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>4.</span><input type="text" value="{{personalQuality_4}}" disabled></td>
+            {{else}}
+                <td><span>4.</span><input type="text" name="personalQuality_4"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>5.</span><input type="text" value="{{personalQuality_5}}" disabled></td>
+            {{else}}
+                <td><span>5.</span><input type="text" name="personalQuality_5"></td>
+            {{/if}}
+        </tr>
+    </table>
+
+    <table border="1" id="dopInfo">
+        <tr class="tr_bg_gray">
+            <td colspan="2">ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ:</td>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>Что вы ожидаете от новой работы?</td>
+                <td><input type="text" value="{{question_1}}" disabled></td>
+            {{else}}
+                <td>Что вы ожидаете от новой работы?</td>
+                <td><input type="text" name="question_1"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>Откуда вы узнали от нашей компании?</td>
+                <td><input type="text" value="{{question_2}}" disabled></td>
+            {{else}}
+                <td>Откуда вы узнали от нашей компании?</td>
+                <td><input type="text" name="question_2"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>Желаемый уровень заработной платы?</td>
+                <td><input type="text" value="{{question_3}}" disabled></td>
+            {{else}}
+                <td>Желаемый уровень заработной платы?</td>
+                <td><input type="text" name="question_3"></td>
+            {{/if}}
+        </tr>
+    </table>
+
+    <table border="1" id="selfQuality">
+        <tr class="tr_bg_gray">
+            <td>УКАЖИТЕ ВАШИ КРИТЕРИИ ИДЕАЛЬНОЙ КОМПАНИИ:</td>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>1.</span><input type="text" value="{{idealFor_1}}" disabled></td>
+            {{else}}
+                <td><span>1.</span><input type="text" name="idealFor_1"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>2.</span><input type="text" value="{{idealFor_2}}" disabled></td>
+            {{else}}
+                <td><span>2.</span><input type="text" name="idealFor_2"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>3.</span><input type="text" value="{{idealFor_3}}" disabled></td>
+            {{else}}
+                <td><span>3.</span><input type="text" name="idealFor_3"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>4.</span><input type="text" value="{{idealFor_4}}" disabled></td>
+            {{else}}
+                <td><span>4.</span><input type="text" name="idealFor_4"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td><span>5.</span><input type="text" value="{{idealFor_5}}" disabled></td>
+            {{else}}
+                <td><span>5.</span><input type="text" name="idealFor_5"></td>
+            {{/if}}
+        </tr>
+    </table>
+    <table border="1">
+        <tr class="tr_bg_gray">
+            <td colspan="6">РЕКОМЕНДУЮ СВОИХ ДРУЗЕЙ:</td>
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>ФИО:</td>
+                <td><input type="text" value="{{friend_fullName_1}}" disabled></td>
+                <td>Телефон:</td>
+                <td><input type="number" value="{{friend_phoneNumber_1}}" disabled></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" value="{{friend_socialNetwork_1}}" disabled></td>
+            {{else}}
+                <td>ФИО:</td>
+                <td><input type="text" name="friend_fullName_1"></td>
+                <td>Телефон:</td>
+                <td><input type="number" name="friend_phoneNumber_1"></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" name="friend_socialNetwork_1"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>ФИО:</td>
+                <td><input type="text" value="{{friend_fullName_2}}" disabled></td>
+                <td>Телефон:</td>
+                <td><input type="number" value="{{friend_phoneNumber_2}}" disabled></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" value="{{friend_socialNetwork_2}}" disabled></td>
+            {{else}}
+                <td>ФИО:</td>
+                <td><input type="text" name="friend_fullName_2"></td>
+                <td>Телефон:</td>
+                <td><input type="number" name="friend_phoneNumber_2"></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" name="friend_socialNetwork_2"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>ФИО:</td>
+                <td><input type="text" value="{{friend_fullName_3}}" disabled></td>
+                <td>Телефон:</td>
+                <td><input type="number" value="{{friend_phoneNumber_3}}" disabled></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" value="{{friend_socialNetwork_3}}" disabled></td>
+            {{else}}
+                <td>ФИО:</td>
+                <td><input type="text" name="friend_fullName_3"></td>
+                <td>Телефон:</td>
+                <td><input type="number" name="friend_phoneNumber_3"></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" name="friend_socialNetwork_3"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>ФИО:</td>
+                <td><input type="text" value="{{friend_fullName_4}}" disabled></td>
+                <td>Телефон:</td>
+                <td><input type="number" value="{{friend_phoneNumber_4}}" disabled></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" value="{{friend_socialNetwork_4}}" disabled></td>
+            {{else}}
+                <td>ФИО:</td>
+                <td><input type="text" name="friend_fullName_4"></td>
+                <td>Телефон:</td>
+                <td><input type="number" name="friend_phoneNumber_4"></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" name="friend_socialNetwork_4"></td>
+            {{/if}}
+        </tr>
+        <tr>
+            {{#if isBased}}
+                <td>ФИО:</td>
+                <td><input type="text" value="{{friend_fullName_5}}" disabled></td>
+                <td>Телефон:</td>
+                <td><input type="number" value="{{friend_phoneNumber_5}}" disabled></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" value="{{friend_socialNetwork_5}}" disabled></td>
+            {{else}}
+                <td>ФИО:</td>
+                <td><input type="text" name="friend_fullName_5"></td>
+                <td>Телефон:</td>
+                <td><input type="number" name="friend_phoneNumber_5"></td>
+                <td>Соц. сеть.:</td>
+                <td><input type="text" name="friend_socialNetwork_5"></td>
+            {{/if}}
+        </tr>
+    </table>
+
+    <div class="statement_footer">
+        <div class="statement_footer__title">
+            <p>
+                <i>Я подтверждаю достоверность изложенной выше информации. Даю согласие на обработку моих персональных
+                    данных.</i>
+            </p>
+        </div>
+        <div class="statement_footer__btns">
+            <div class="statement_footer_date">
+                {{#if isBased}}
+                    <span>Дата</span><input type="text" value="{{signatureDate}}" disabled>
+                {{else}}
+                    <span>Дата</span><input type="text" name="signatureDate" class="point" disabled>
+                {{/if}}
+            </div>
+            <div class="statement_footer_signature" id="signature">
+                {{#if isBased}}
+                    <img src="{{signature}}" id="sing_img" alt="Error: Signature not found">
+                {{else}}
+                    <span>Подпись</span><input type="button" id="signatureButton">
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+<div id="signature-pad" class="signature-pad">
+    <div class="signature-pad--body">
+        <canvas></canvas>
+    </div>
+    <div class="signature-pad--footer">
+        <div class="signature-pad--actions">
+            <button type="button" class="button clear" data-action="clear">Очистить</button>
+            <button type="submit" class="button save" data-action="save">Сохранить</button>
+        </div>
+    </div>
+</div>

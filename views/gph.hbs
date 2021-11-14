@@ -1,0 +1,458 @@
+<style>
+    h4 {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    select {
+        height: 30px;
+        font-size: 18px;
+        outline: none;
+        border: none;
+    }
+
+    input {
+        font-family: "Times New Roman", sans-serif;
+        text-align: center;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #212529;
+        padding: 0 10px;
+        font-size: 23px;
+        background: none;
+    }
+
+    option {
+        font-size: 18px;
+    }
+
+    input[type=date]::-webkit-inner-spin-button,
+    ::-webkit-calendar-picker-indicator {
+        display: none;
+    }
+
+    ol {
+        list-style: none;
+        counter-reset: li;
+        padding-top: 2px;
+    }
+
+    ol {
+        list-style: none;
+        counter-reset: li;
+        padding-top: 2px;
+    }
+
+    li {
+        padding-top: 5px;
+    }
+
+    li:before {
+        counter-increment: li;
+        content: counters(li, ".") ". ";
+        font-weight: bold;
+    }
+
+    input[type='button'] {
+        width: 100%;
+    }
+
+    .wrapper {
+        font-family: "Times New Roman", sans-serif;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+        padding: 100px 50px;
+        max-width: 1140px;
+        width: 100%;
+    }
+
+    .header {
+        padding-bottom: 50px;
+        font-size: 23px;
+    }
+
+    .position {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        padding: 0 40px;
+    }
+
+    .content {
+        font-size: 23px;
+    }
+
+    .inner-content-text {
+        margin-left: 3.5%;
+    }
+
+    .passport {
+        width: 20%;
+    }
+
+    .FIO {
+        width: 40%;
+    }
+
+    .passport-issued {
+        width: 60%;
+    }
+
+    .registration {
+        width: 80%;
+    }
+
+
+    .numbered-list {
+        padding-left: 0;
+    }
+
+    .requisites {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .footer {
+        gap: 50px;
+        display: flex;
+        padding-top: 50px;
+        font-size: 20px;
+    }
+
+    .footer-left {
+        max-width: 505px;
+        width: 100%;
+        border: 2px solid black;
+    }
+
+    .footer-right {
+        max-width: 505px;
+        width: 100%;
+        border: 2px solid black;
+    }
+
+    .footer-left-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: 10px 50px 50px 10px;
+    }
+
+    .footer-left-text strong {
+        margin-bottom: -40px;
+    }
+
+    .footer-left-text > input {
+        width: 70%;
+        font-size: 16px;
+    }
+
+    .point {
+        width: 200px;
+    }
+
+    .footer_block_signature {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 100px;
+    }
+
+    .statement_footer_signature {
+        display: flex;
+        align-items: center;
+    }
+
+    .statement_footer_signature > input {
+        width: 100px;
+    }
+
+    .city:before {
+        content: "г. ";
+    }
+</style>
+
+<div class="wrapper">
+    <div class="header">
+        <div class="inner-header">
+            <h4>ДОГОВОР НА ОКАЗАНИЕ УСЛУГ</h4>
+            <div class="position">
+                {{#if isBased}}
+                    <div class="city">
+                        <select class="choice" disabled>
+                            <option>{{city}}</option>
+                        </select>
+                    </div>
+                    <input type="text" class="point" disabled value="{{signatureDate}}">
+                {{else}}
+                    <div class="city">
+                        <select class="choice" name="city">
+                            <option>Луганск</option>
+                            <option>Донецк</option>
+                            <option>Свердловск</option>
+                            <option>Ровеньки</option>
+                            <option>Алчевск</option>
+                            <option>Енакиево</option>
+                            <option>Красный Луч</option>
+                            <option>Макеевка</option>
+                            <option>Горловка</option>
+                            <option>Первомайск</option>
+                            <option>Торжок</option>
+                            <option>Вязьма</option>
+                            <option>Переславль-Залесский</option>
+                        </select>
+                    </div>
+                    <input type="text" class="point" disabled>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="inner-content">
+            <span class="inner-content-text"> Общество с ограниченной ответственностью <strong>«100 КЛИЕНТОВ»</strong>, в лице Генерального директора <strong>Лалина Алексея Александровича</strong>, действующего на основании Устава, именуемое в дальнейшем “Заказчик”, и</span>
+            {{#if isBased}}
+                <input type="text" class="FIO" value="{{fullName}}" disabled>
+                <span>паспортные данные:</span>
+                <input type="text" class="passport" value="{{passport}}" disabled>
+                <span> выдан: </span>
+                <input type="text" class="passport-issued" value="{{passportData}}" disabled>
+                <span>, проживающий по адресу: </span>
+                <input type="text" class="registration" value="{{address}}" disabled>
+                <span>, именуемый в дальнейшем “Исполнитель”, заключили настоящий договор о нижеследующем. </span>
+            {{else}}
+                <input type="text" class="FIO" name="fullName" required>
+                <span>паспортные данные:</span>
+                <input type="text" class="passport" name="passport">
+                <span> выдан: </span>
+                <input type="text" class="passport-issued" name="passportData">
+                <span>, проживающий по адресу: </span>
+                <input type="text" class="registration" name="address">
+                <span>, именуемый в дальнейшем “Исполнитель”, заключили настоящий договор о нижеследующем. </span>
+            {{/if}}
+            <br>
+            <ol class="numbered-list">
+                <li><strong>Предмет договора</strong>
+                    <ol>
+                        <li>Исполнитель обязуется оказать по заданию Заказчика услуги, указанную в п. 1.2 настоящего
+                            договора, и сдать ее результат Заказчику, а Заказчик обязуется принять и оплатить эти
+                            услуги.
+                        </li>
+                        <li>Исполнитель обязуется выполнять работу в должности ОПЕРАТОР:
+                            <br>- оказывать услуги удаленного менеджера
+                            <br>- осуществлять сбор маркетинговой информации посредством телефонного
+                            интервьюирования
+                        </li>
+                    </ol>
+                    <br>
+                </li>
+                <li><strong>Порядок выполнения и приемки работ</strong>
+                    <ol>
+                        <li>
+                            Срок оказания услуг с
+                            {{#if isBased}}
+                                <input type="date" value="{{dateFrom}}" disabled>
+                                до
+                                <input type="date" value="{{dateTo}}" disabled>
+                            {{else}}
+                                <input type="date" name="dateFrom">
+                                до
+                                <input type="date" name="dateTo">
+                            {{/if}}
+                            В этот период Исполнитель самостоятельно определяет временные интервалы для выполнения
+                            конкретных услуг, указанных в п. 1.2. настоящего договора, однако при этом о времени
+                            оказания
+                            услуг уведомляет Заказчика. Исполнитель имеет право завершить оказание услуг досрочно.
+                        </li>
+                        <li>Услуги оказываются Исполнителем на территории Заказчика. Услуги, которые могут быть
+                            оказаны
+                            не
+                            на территории Заказчика без ущерба для Заказчика, оказываются Исполнителем на своей
+                            территории с
+                            согласия Заказчика.
+                        </li>
+                        <li>Услуги считаются оказанными после подписания сторонами акта выполненных услуг. Акт
+                            выполненных
+                            услуг подписывается сторонами в последний день оказания услуг.
+                        </li>
+                    </ol>
+                    <br>
+                </li>
+                <br>
+                <li><strong>Права и обязанности сторон</strong>
+                    <ol>
+                        <li>Исполнитель обязан:
+                            <ol>
+                                <li>Оказать Услуги с надлежащим качеством.</li>
+                                <li>Оказать Услуги в срок, указанный в п. 2.2 настоящего договора.</li>
+                                <li>Безвозмездно исправить по требованию Заказчика все выявленные недостатки, если в
+                                    процессе оказания Услуг Исполнитель допустил отступление от условий договора,
+                                    ухудшившее
+                                    качество оказанных Услуг, в течение 5 дней.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>Исполнитель вправе привлечь к выполнению работы по настоящему договору третьих лиц с
+                            письменного
+                            согласия Заказчика.
+                        </li>
+                        <li>Заказчик обязан:
+                            <ol>
+                                <li> Оплатить Услуги по цене, указанной в п. 4 настоящего договора, в течение 20
+                                    дней с
+                                    момента подписания акта выполненных услуг.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>3аказчик имеет право:
+                            <ol>
+                                <li>Адуванчик</li>
+                                <li>Во всякое время проверять ход и качество услуг, оказываемых Исполнителем, не
+                                    вмешиваясь
+                                    в его деятельность.
+                                </li>
+                                <li>Отказаться от исполнения договора в любое время до подписания акта выполненных
+                                    работ,
+                                    уплатив Исполнителю часть установленной цены пропорционально части оказанных
+                                    Услуг,
+                                    выполненной до получения извещения об отказе Заказчика от исполнения договора.
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+                </li>
+                <br>
+                <li><strong>Цена договора</strong>
+                    <ol>
+                        <li>Цена настоящего договора определяются по результатам работы, согласно подписанного Акта
+                            выполненных услуг.
+                        </li>
+                    </ol>
+                </li>
+                <br>
+                <li><strong>Ответственность сторон</strong>
+                    <ol>
+                        <li>За нарушение срока оказания Услуг, указанного в п. 2.2. настоящего договора, Исполнитель
+                            уплачивает Заказчику пеню из расчета 5% от суммы договора за каждый день просрочки.
+                        </li>
+                        <li>За нарушение срока оплаты Услуг, указанного в п. 2.2. настоящего договора, Заказчик
+                            уплачивает
+                            Исполнителю пеню из расчета 5% от суммы договора за каждый день просрочки.
+                        </li>
+                        <li>Меры ответственности сторон, не предусмотренные в настоящем договоре, применяются в
+                            соответствии
+                            с нормами гражданского законодательства, действующего на территории ЛНР.
+                        </li>
+                        <li>Уплата неустойки не освобождает стороны от выполнения лежащих на них обязательств или
+                            устранения
+                            нарушений.
+                        </li>
+                    </ol>
+                </li>
+                <br>
+                <li><strong>Прочие условия</strong>
+                    <ol>
+                        <li>Настоящий договор вступает в силу со дня его подписания.</li>
+                        <li>Споры и разногласия, которые могут возникнуть при исполнении настоящего договора, будут
+                            по
+                            возможности разрешаться путем переговоров между сторонами.
+                        </li>
+                        <li>В случае невозможности разрешения споров путем переговоров стороны после реализации
+                            предусмотренной законодательством процедуры досудебного урегулирования разногласий
+                            передают
+                            их
+                            на рассмотрение в суд по месту нахождения Заказчика.
+                        </li>
+                        <li>Любые изменения и дополнения к настоящему договору действительны лишь при условии, что
+                            они
+                            совершены в письменной форме и подписаны уполномоченными на то представителями сторон.
+                            Приложения к настоящему договору составляют его неотъемлемую часть.
+                        </li>
+                        <li>Настоящий договор составлен в двух экземплярах. Оба экземпляра идентичны и имеют
+                            одинаковую
+                            силу. У каждой из сторон находится один экземпляр настоящего договора.
+                        </li>
+                    </ol>
+                </li>
+                <br>
+                <br>
+                <li class="requisites">Реквизиты и подписи сторон</li>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-left">
+            <div class="footer-left-text">
+                <strong>Заказчик:</strong>
+                <div>
+                    <div><strong>ООО «100 КЛИЕНТОВ»</strong></div>
+                    <div>91011, ЛНР, г. Луганск, ул. Херсонская 7-е, пом. 5</div>
+                    <div>Свидетельство № 11-0003795/2019 от</div>
+                    <div>25.04.2019 г</div>
+                    <div>ЕГРЮЛ 61137954</div>
+                    <div>р/сч 40702810901162654601</div>
+                    <div>Гос банк ЛНР</div>
+                    <div>БИК 611027201</div>
+                </div>
+                <div>
+                    {{#if isBased}}
+                        <input type="text" class="point" disabled value="{{signatureDate}}">
+                    {{else}}
+                        <input type="text" class="point" disabled name="signatureDate">
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="footer-right">
+            <div class="footer-left-text">
+                <div>
+                    <strong>Исполнитель:</strong>
+                    <div>
+                        {{#if isBased}}
+                            <div><input type="text" value="{{fullName}}" disabled></div>
+                            <div><input type="text" value="{{address}}" disabled></div>
+                            <div><input type="text" value="{{personalQuality_1}}" disabled></div>
+                            <div><input type="text" value="{{personalQuality_2}}" disabled></div>
+                            <div><input type="text" value="{{personalQuality_3}}" disabled></div>
+                            <div><input type="text" value="{{personalQuality_4}}" disabled></div>
+                            <div><input type="text" value="{{inn}}" disabled></div>
+                        {{else}}
+                            <div><input type="text"></div>
+                            <div><input type="text"></div>
+                            <div><input type="text" name="personalQuality_1"></div>
+                            <div><input type="text" name="personalQuality_2"></div>
+                            <div><input type="text" name="personalQuality_3"></div>
+                            <div><input type="text" name="personalQuality_4"></div>
+                            <div><input type="text" name="inn"></div>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="footer_block_signature">
+                    <div>
+                        {{#if isBased}}
+                            <input type="text" class="point" disabled value="{{signatureDate}}">
+                        {{else}}
+                            <input type="text" class="point" disabled>
+                        {{/if}}
+                    </div>
+                    <div class="statement_footer_signature" id="signature">
+                        {{#if isBased}}
+                            <img src="{{signature}}" id="sing_img" alt="">
+                        {{else}}
+                            <span>Подпись:</span><input type="button" id="signatureButton">
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="signature-pad" class="signature-pad">
+    <div class="signature-pad--body">
+        <canvas></canvas>
+    </div>
+    <div class="signature-pad--footer">
+        <div class="signature-pad--actions">
+            <button type="button" class="button clear" data-action="clear">Очистить</button>
+            <button type="submit" class="button save" data-action="save">Сохранить</button>
+        </div>
+    </div>
+</div>
