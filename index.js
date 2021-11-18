@@ -29,4 +29,4 @@ async function start() {
     }
 }
 
-start()
+start().then(r => console.log(r));

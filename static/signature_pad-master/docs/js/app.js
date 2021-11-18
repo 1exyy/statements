@@ -5,6 +5,7 @@ let canvas = wrapper.querySelector("canvas");
 let signatureContainer = document.querySelector('#signature');
 let signatureButton = document.querySelector('#signatureButton');
 let type = window.location.href;
+
 let signaturePad = new SignaturePad(canvas, {
   backgroundColor: 'rgb(255, 255, 255)'
 });
@@ -62,7 +63,7 @@ saveButton.addEventListener('click', () => {
       body: JSON.stringify(obj),
     })
       .then(r => {
-        if(r.status === 500){
+        if (r.status === 500) {
           alert("Ошибка при отправке заявления, повторите попытку позже...");
           return;
         }
@@ -80,9 +81,6 @@ signatureButton.addEventListener('click', () => {
   wrapper.classList.add('show');
   resizeCanvas();
 })
-
-
-
 
 
 

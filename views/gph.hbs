@@ -185,7 +185,7 @@
                     <input type="text" class="point" disabled value="{{signatureDate}}">
                 {{else}}
                     <div class="city">
-                        <select class="choice" name="city">
+                        <select class="choice" name="city" onChange="cityChange(this.value)">
                             <option>Луганск</option>
                             <option>Донецк</option>
                             <option>Свердловск</option>
@@ -304,7 +304,6 @@
                         </li>
                         <li>3аказчик имеет право:
                             <ol>
-                                <li>Адуванчик</li>
                                 <li>Во всякое время проверять ход и качество услуг, оказываемых Исполнителем, не
                                     вмешиваясь
                                     в его деятельность.
@@ -382,7 +381,7 @@
         <div class="footer-left">
             <div class="footer-left-text">
                 <strong>Заказчик:</strong>
-                <div>
+                <div id="footer_city_data">
                     <div><strong>ООО «100 КЛИЕНТОВ»</strong></div>
                     <div>91011, ЛНР, г. Луганск, ул. Херсонская 7-е, пом. 5</div>
                     <div>Свидетельство № 11-0003795/2019 от</div>
@@ -456,3 +455,46 @@
         </div>
     </div>
 </div>
+<script>
+    function cityChange(city) {
+        if (!city) city = "Луганск";
+        let footer_city_data = document.querySelector('#footer_city_data')
+        let data;
+        if (cities[city] === "РФ") {
+            data = `<div><strong>ИП Карпенко Дмитрий Алексеевич</strong></div>
+                    <div>Россия, г.Москва, г, ул. Б. Очаковская, д 23/8, кв 29</div>
+                    <div>ИНН: 616121057541</div>
+                    <div>р/сч 40802810401080001744</div>
+                    <div>к/сч 30101810145250000411</div>
+                    <div>БИК 044525411</div>
+                    <div>ВТБ (ПАО) г.Москва</div>
+                    <div>Тел. +79100133009</div>`
+        } else {
+            data = `<div><strong>ООО «100 КЛИЕНТОВ»</strong></div>
+                    <div>91011, ЛНР, г. Луганск, ул. Херсонская 7-е, пом. 5</div>
+                    <div>Свидетельство № 11-0003795/2019 от</div>
+                    <div>25.04.2019 г</div>
+                    <div>ЕГРЮЛ 61137954</div>
+                    <div>р/сч 40702810901162654601</div>
+                    <div>Гос банк ЛНР</div>
+                    <div>БИК 611027201</div>`
+        }
+        footer_city_data.innerHTML = '';
+        footer_city_data.insertAdjacentHTML('beforeend', data);
+    }
+
+    let cities = {
+        "Луганск": "ЛНР",
+        "Донецк": "ДНР",
+        "Свердловск": "ЛНР",
+        "Ровеньки": "ЛНР",
+        "Алчевск": "ЛНР",
+        "Красный Луч": "ЛНР",
+        "Макеевка": "ЛНР",
+        "Горловка": "ЛНР",
+        "Первомайск": "ЛНР",
+        "Торжок": "РФ",
+        "Вязьма": "РФ",
+        "Переславль-Залесский": "РФ",
+    }
+</script>
