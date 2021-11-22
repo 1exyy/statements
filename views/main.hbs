@@ -1,0 +1,62 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+    .statements {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+    }
+
+    .statements_item {
+        margin: 0 auto;
+        font-family: "Montserrat", sans-serif;
+        text-decoration: none;
+        color: black;
+        max-width: 200px;
+        width: 100%;
+        min-height: 250px;
+        box-shadow: 0 0 7px rgba(0, 0, 0, .3);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 10px 30px;
+    }
+
+    .statements_item:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, .4);
+
+    }
+
+    .statement_date {
+        align-self: flex-end;
+        font-weight: bold;
+    }
+
+    .statement_title {
+        align-self: center;
+        font-weight: bold;
+        font-size: 18px;
+    }
+</style>
+
+
+<div class="wrapper">
+    <div class="statements">
+        {{#each statements}}
+            <a class="statements_item" href="/statement/{{type}}/{{statementID}}">
+                <div class="statement_title">
+                    {{descriptionType}}
+                </div>
+                <div class="statement_description">
+                    {{fullName}}
+                </div>
+                <div class="statement_description">
+                    {{city}}
+                </div>
+                <div class="statement_date">
+                    {{signatureDate}}
+                </div>
+            </a>
+        {{/each}}
+    </div>
+</div>

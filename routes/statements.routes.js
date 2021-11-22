@@ -1,7 +1,8 @@
 const {Router} = require('express');
 const Statement = require('../models/statement');
 const router = Router();
-const configuration = require('../config/default.json')
+const configuration = require('../config/default.json');
+const authMiddleware = require('../middlewaree/authMiddlewaree');
 let axios = require('axios');
 
 const statementTitles = {
@@ -186,6 +187,7 @@ router.get(`/non_disclosure`, (request, response) => {
         response.render(`non_disclosure.hbs`, {
             title: 'О неразглашении'
         });
+
     } catch (e) {
         response.render('404.hbs', {
             title: 'Error 404',
@@ -194,7 +196,7 @@ router.get(`/non_disclosure`, (request, response) => {
     }
 });
 
-router.get(`/:type/:id`, async (request, response) => {
+router.get(`/:type/:id`,authMiddleware, async (request, response) => {
     try {
         const id = request.params.id;
         const type = request.params.type;
