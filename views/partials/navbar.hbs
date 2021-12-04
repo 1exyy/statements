@@ -1,0 +1,39 @@
+<style>
+    .nav_bar {
+        background-color: white;
+        width: 200px;
+        box-shadow: 0 0 7px rgba(0, 0, 0, 4);
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 99;
+        padding: 30px 0;
+    }
+
+    .nav_bar ul > li {
+        list-style: none;
+        cursor: pointer;
+    }
+
+    .nav_bar li:hover {
+        box-shadow: 0 0 2px rgba(0, 0, 0, 3);
+    }
+
+    .nav_bar a {
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
+    }
+</style>
+{{#if isAdmin}}
+<div class="nav_bar">
+    <ul>
+        <li><a href="/admin/main">Заявления</a></li>
+        <li><a href="/admin/usersControl">Пользователи</a></li>
+    </ul>
+</div>
+{{/if}}

@@ -1,0 +1,190 @@
+<style>
+    .user_item {
+        list-style: none;
+        font-family: Montserrat, sans-serif;
+        padding: 15px;
+        margin-top: 20px;
+        border: 1px solid cadetblue;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 5px;
+    }
+
+    .wrapper ul {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    button {
+        outline: none;
+        border-radius: 2px;
+        border: 1px solid lightblue;
+        cursor: pointer;
+        margin-right: 10px;
+        padding: 10px 15px;
+        user-select: none;
+        background: none;
+        font-family: Montserrat, sans-serif;
+    }
+
+    button:hover {
+        border: 1px solid transparent;
+        background: lightblue;
+        transition: .3s;
+    }
+
+    .create_menu {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .addItem {
+        display: none;
+        background: rgba(33, 37, 41, 0.05);
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 100;
+        width: 100vw;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .addItem form {
+        background: white;
+        max-width: 400px;
+        width: 100%;
+        min-height: 500px;
+        border: 2px solid lightblue;
+        border-radius: 20px;
+    }
+
+    .button_close {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        font-family: Montserrat, sans-serif;
+        padding: 0 10px;
+    }
+
+    .button_close button {
+        margin: 0;
+        font-size: 22px;
+        border: none;
+        border-radius: 100%;
+    }
+
+    .addItem.show {
+        display: flex;
+    }
+
+    .addItem_body {
+        padding: 0 30px;
+        font-family: Montserrat, sans-serif;
+    }
+
+    .addItem_body__item {
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+    }
+
+    .addItem_body__item input {
+        min-height: 30px;
+        font-size: 20px;
+        outline: none;
+    }
+
+    .sendBtn {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+        margin-right: 15px;
+    }
+
+    select {
+        outline: none;
+        overflow: hidden;
+    }
+
+    option {
+        font-family: Montserrat,sans-serif;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+</style>
+
+<div class="wrapper">
+    <h1>Список пользователей</h1>
+    <div class="create_menu">
+        <button id="addItemMenu">Добавить</button>
+    </div>
+    <ul>
+        {{#each users}}
+            <li>
+                <form action="/admin/removeUser" method="POST" class="user_item">
+                    <span>{{fullname}}</span>
+                    <input style="display: none" value="{{_id}}" name="_id">
+                    <div>
+                        <button type="submit">Удалить</button>
+                        <button id="edit" type="button">Изменить</button>
+                    </div>
+                </form>
+            </li>
+        {{/each}}
+    </ul>
+</div>
+
+<div class="addItem">
+    <form action="/admin/create" method="POST">
+        <div class="button_close">
+            <span>Добавить нового пользователя</span>
+            <button id="closeAddItem" type="button" onclick="menuToAddNewUser.classList.toggle('show')">&times;</button>
+        </div>
+        <div class="addItem_body">
+            <div class="addItem_body__item">
+                <span>Email</span>
+                <input type="email" required="true" name="email">
+            </div>
+            <div class="addItem_body__item">
+                <span>Имя пользователя</span>
+                <input type="text" required="true" name="username">
+            </div>
+            <div class="addItem_body__item">
+                <span>Ф.И.О</span>
+                <input type="text" required="true" name="fullname">
+            </div>
+            <div class="addItem_body__item">
+                <span>Пароль</span>
+                <input type="text" required="true" name="password">
+            </div>
+            <div class="addItem_body__item">
+                <span>Уровень доступа</span>
+                <select name="roles" multiple>
+                    <option value="USER">Пользователь</option>
+                    <option value="HR">Кадры</option>
+                    <option value="ADMIN">Разработка ПО</option>
+                </select>
+            </div>
+        </div>
+        <div class="sendBtn">
+            <button type="submit">Создать</button>
+        </div>
+    </form>
+</div>
+
+<!--<div class="editItem">-->
+<!--    <form action="" method="POST">-->
+<!--        <button id="closeAddItem">&times;</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+

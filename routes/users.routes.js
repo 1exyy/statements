@@ -1,8 +1,8 @@
 const {Router} = require('express');
 const Statement = require('../models/statement');
 const User = require('../models/User');
-const Role = require('../models/Role');
 const authMiddleware = require('../middlewaree/authMiddlewaree');
+const roleMiddleware = require('../middlewaree/roleMiddleware');
 const router = Router();
 const bcrypt = require('bcrypt');
 
@@ -15,8 +15,15 @@ const statementTitles = {
 
 router.get('/login', async (request, response) => {
     response.render('login.hbs', {})
-
 });
+router.get('/usersControl', authMiddleware, roleMiddleware, async (request, response) => {
+    let users = await User.find({}).lean();
+    response.render("adminPanel.hbs", {
+        users,
+        isAdmin: request.session.isAdmin
+    })
+});
+
 router.get('/main', authMiddleware, async (request, response) => {
     let statements = await Statement.find({}).lean();
     statements.map((a) => a.descriptionType = (statementTitles[a.type]));
@@ -30,14 +37,15 @@ router.get('/main', authMiddleware, async (request, response) => {
         return 0;
     });
 
-    response.render('main.hbs', {statements})
-
+    response.render('main.hbs', {
+        statements,
+        isAdmin: request.session.isAdmin
+    })
 });
 
 router.post('/create', async (request, response) => {
     try {
-
-        const {username, password, fullname, email} = request.body;
+        const {username, password, fullname, email, roles} = request.body;
         const candidate = await User.findOne({username});
 
         if (candidate) {
@@ -45,19 +53,18 @@ router.post('/create', async (request, response) => {
         }
 
         const hashPassword = bcrypt.hashSync(password, 7);
-        const userRole = await Role.findOne({value: "USER"});
         const user = new User({
             username,
             email,
             fullname,
             password: hashPassword,
-            roles: [userRole.value]
+            roles
         });
 
         await user.save();
-        response.status(200).json({massage: "Пользователь успешно зарегестрирован"});
+        return response.redirect('/admin/usersControl');
     } catch (e) {
-        console.log(e)
+
         return response.status(500).json({massage: `Ошибка`});
     }
 })
@@ -74,8 +81,15 @@ router.post('/auth', async (request, response) => {
         return response.status(400).json({massage: `Неверный пароль!`})
     }
     request.session.isAuth = true;
+    request.session.isAdmin = user.roles.includes('ADMIN');
 
     return response.redirect('/admin/main');
+});
+
+router.post('/removeUser', async (request, response) => {
+    const {_id} = request.body;
+    await User.findByIdAndDelete(_id);
+    return response.redirect('/admin/usersControl');
 });
 
 module.exports = router;
