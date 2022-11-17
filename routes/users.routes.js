@@ -12,16 +12,16 @@ const statementTitles = {
     non_disclosure: "О неразглашении"
 }
 
-
 router.get('/login', async (request, response) => {
     response.render('login.hbs', {})
 });
+
 router.get('/usersControl', authMiddleware, roleMiddleware, async (request, response) => {
     let users = await User.find({}).lean();
     response.render("adminPanel.hbs", {
         users,
         isAdmin: request.session.isAdmin
-    })
+    });
 });
 
 router.get('/main', authMiddleware, async (request, response) => {
@@ -76,10 +76,12 @@ router.post('/auth', async (request, response) => {
     if (!user) {
         return response.status(400).json({massage: `Пользователь ${username} не найден!`})
     }
+
     const validPassword = bcrypt.compareSync(password, user.password);
     if (!validPassword) {
         return response.status(400).json({massage: `Неверный пароль!`})
     }
+
     request.session.isAuth = true;
     request.session.isAdmin = user.roles.includes('ADMIN');
 

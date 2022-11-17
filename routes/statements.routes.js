@@ -196,7 +196,7 @@ router.get(`/non_disclosure`, (request, response) => {
     }
 });
 
-router.get(`/:type/:id`,authMiddleware, async (request, response) => {
+router.get(`/:type/:id`, authMiddleware, async (request, response) => {
     try {
         const id = request.params.id;
         const type = request.params.type;
